@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "RightClickActions",
+            "id": "05ea659c-67d9-46c1-b8b1-9cda0a10654e",
+            "actions": [
+                {
+                    "name": "RightClickActions",
+                    "type": "Button",
+                    "id": "b8ef3741-1d1b-407a-b131-348cd8c79d44",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "518b3a43-bd9c-4c4c-ab2b-454cb06fad42",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightClickActions",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
