@@ -4,16 +4,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public NavMeshAgent agent;
-    public Camera cam;
-
-    [Header("Settings")]
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Camera cam;
     [SerializeField] private float stoppingDistance = 0.5f;
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        cam = Camera.main;
+        if (agent == null) agent = GetComponent<NavMeshAgent>();
+        if (cam == null) cam = Camera.main;
     }
 
     public void OnRightClick(InputAction.CallbackContext context)

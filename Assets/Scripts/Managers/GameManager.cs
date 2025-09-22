@@ -1,12 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Torretas disponibles")]
-    public GameObject[] towerPrefabs;
-    private int selectedTowerIndex = 0;
+    public GameObject currentTower;   // Prefab de la torre
+    public GridManager gridManager;   // Referencia al GridManager
 
     void Awake()
     {
@@ -14,19 +13,32 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public bool CanBuild()
+    // Llamado desde un slot al hacer click
+    public void TryBuild(BuildSlot slot)
     {
-        return towerPrefabs.Length > 0;
-    }
+        if (currentTower == null)
+        {
+            Debug.Log("No hay torre seleccionada.");
+            return;
+        }
 
-    public GameObject GetSelectedTower()
-    {
-        return towerPrefabs[selectedTowerIndex];
-    }
+        // 👇 Validar si el slot pertenece al GridManager
+        bool isRegistered = false;
+        foreach (BuildSlot s in gridManager.slots)
+        {
+            if (s == slot)
+            {
+                isRegistered = true;
+                break;
+            }
+        }
 
-    public void SelectTower(int index)
-    {
-        if (index >= 0 && index < towerPrefabs.Length)
-            selectedTowerIndex = index;
+        if (!isRegistered)
+        {
+            Debug.Log("Este slot no está registrado en el GridManager.");
+            return;
+        }
+
+        slot.Build(currentTower);
     }
 }

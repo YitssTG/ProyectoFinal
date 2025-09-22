@@ -2,44 +2,23 @@ using UnityEngine;
 
 public class BuildSlot : MonoBehaviour
 {
-    [Header("Slot State")]
-    public bool isOccupied = false;
-    public GameObject currentTower;
+    private GameObject builtTower;
 
-    [Header("Visuals")]
-    public Color freeColor = Color.green;
-    public Color occupiedColor = Color.red;
-
-    private Renderer rend;
-
-    void Awake()
+    // Construir en este slot
+    public void Build(GameObject towerPrefab)
     {
-        rend = GetComponent<Renderer>();
-        UpdateColor();
-    }
-
-    public void PlaceTower(GameObject towerPrefab)
-    {
-        if (!isOccupied && towerPrefab != null)
+        if (builtTower != null)
         {
-            currentTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-            isOccupied = true;
-            UpdateColor();
+            Debug.Log("Este slot ya está ocupado.");
+            return;
         }
-    }
 
-    void UpdateColor()
-    {
-        if (rend != null)
-            rend.material.color = isOccupied ? occupiedColor : freeColor;
+        builtTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
     }
 
     void OnMouseDown()
     {
-        if (!isOccupied && GameManager.Instance.CanBuild())
-        {
-            GameObject towerPrefab = GameManager.Instance.GetSelectedTower();
-            PlaceTower(towerPrefab);
-        }
+        // Buscar al GameManager y construir en este slot
+        GameManager.Instance.TryBuild(this);
     }
 }

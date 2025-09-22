@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    [Header("Slots disponibles")]
-    public BuildSlot[] slots;
+    public BuildSlot[] slots; // Arrastras manualmente desde la escena
 
-    public BuildSlot[] GetAllSlots()
+    // (Opcional) método si quieres construir en slot por índice
+    public void BuildInSlot(int index, GameObject towerPrefab)
     {
-        return slots;
+        if (index < 0 || index >= slots.Length) return;
+        slots[index].Build(towerPrefab);
     }
 }
